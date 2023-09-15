@@ -28,4 +28,13 @@ public class ProductService {
     public Product getProductBy(String id){
         return productRepository.findById(id).orElseThrow();
     }
+
+    public void deleteProductBy(String id) {
+        try{
+            Product deleteProduct = getProductBy(id);
+            productRepository.delete(deleteProduct);
+        }catch(NoSuchElementException e){
+            throw new NoSuchElementException();
+        }
+    }
 }

@@ -28,12 +28,22 @@ public class ProductController {
             return productService.getProductBy(id);
         } catch(NoSuchElementException e) {
             System.out.println("Fehler gefangen!" + e);
+            return new Product("null", "null", 0);
         }
-        return null;
     }
 
     @PostMapping()
     public Product addProduct(@RequestBody NewProductDTO newProduct){
         return productService.addProduct(newProduct);
+    }
+
+    @DeleteMapping("/{id}")
+    public String deleteProductById(@PathVariable String id){
+        try{
+            productService.deleteProductBy(id);
+            return "Product mit der Id: " + id + " ist gelöscht!";
+        }catch(NoSuchElementException e){
+            return "Das Product mit der Id: " + id + " existiert nicht und kann deshalb nicht gelöscht werden.";
+        }
     }
 }
