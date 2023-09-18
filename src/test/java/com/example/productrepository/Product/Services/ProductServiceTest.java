@@ -51,6 +51,7 @@ class ProductServiceTest {
         String id = "123";
 
         when(productRepository.findById(id)).thenThrow(NoSuchElementException.class);
+        //when(productRepository.findById(id)).thenReturn(Optional.empty());
 
         try{
             Product actual = productService.getProductBy(id);
@@ -74,7 +75,7 @@ class ProductServiceTest {
         Product actual = productService.addProduct(newProduct);
 
         Product expected = new Product("770a1fb7-9899-4c8a-bdc1-83d163b1080c", "testProduct", 123);
-        verify(productRepository).save(any());
+        verify(productRepository).save(savedProduct);
         assertEquals(expected, actual);
     }
 }
